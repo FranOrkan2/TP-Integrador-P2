@@ -33,21 +33,20 @@ public class HistoriaClinica {
     }
     
     public void agregarDiagnostico(String diagnostico){
-        if(!diagnostico.isEmpty() && diagnostico!= null){
+        if(diagnostico != null && !diagnostico.trim().isEmpty()){
             this.diagnostico.add(diagnostico);
         }
     }
 
     public void agregarTratamiento(String tratamientos) {
-        if(!tratamientos.isEmpty() && tratamientos!=null){
+        if(tratamientos!=null && !tratamientos.trim().isEmpty()){
             
             this.tratamientos.add(tratamientos);
         }
     }
 
     public void agregarAlergia(String alergias) {
-        if(!alergias.isEmpty() && alergias!=null){
-            
+        if(alergias!=null && !alergias.trim().isEmpty()){
             this.alergias.add(alergias);
         }
     }
@@ -61,7 +60,7 @@ public class HistoriaClinica {
         return paciente;
     }
 
-    public List<String> getDiagnostico() {
+    public List<String> getDiagnosticos() {
         return Collections.unmodifiableList(diagnostico);
     }
 

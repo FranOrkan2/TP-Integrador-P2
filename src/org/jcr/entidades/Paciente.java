@@ -43,10 +43,21 @@ public class Paciente extends Persona{
         return historiaClinica;
     }
     
-    //verificar que el hostiptal cambia al paciente tambien
+    
     public void setHospital(Hospital hospital) {
         Validaciones.noNulo(hospital, "El Hospital no puede ser nulo");
-        this.hospital = hospital;
+        if(hospital != this.hospital){
+            Hospital hospitalAntiguo = this.hospital;
+            this.hospital= null;
+            this.hospital = hospital;
+            if(hospitalAntiguo !=null && hospitalAntiguo.getInternalPacientes().contains(this)){
+                hospitalAntiguo.getInternalPacientes().remove(this);
+            }
+        }
+        if(!hospital.getInternalPacientes().contains(this)){
+            
+            hospital.agregarPaciente(this);
+        }
     }
 
     public Hospital getHospital() {

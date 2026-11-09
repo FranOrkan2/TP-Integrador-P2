@@ -24,8 +24,22 @@ public class Medico extends Persona{
         this.citas = new ArrayList<>();
     }
 
-    public void setDepartamento(Departamento departamento) { //verificar que el Departamento cambia al Medico tambien
-        this.departamento = departamento;
+    public void setDepartamento(Departamento departamento) { 
+        Validaciones.noNulo(departamento, "El departamento no puede ser nulo");
+        if(this.especialidad != departamento.getEspecialidad()){
+            throw new IllegalArgumentException("El Departamento debe ser de la misma especialidad que el medico");
+        } 
+        if(departamento != this.departamento){
+            Departamento departamentoAntiguo = this.departamento;
+            this.departamento = null;
+            this.departamento = departamento;
+            if(departamentoAntiguo != null && departamentoAntiguo.getInternalMedicos().contains(this)){
+                departamentoAntiguo.getInternalMedicos().remove(this);
+            }
+        }
+        if(!departamento.getInternalMedicos().contains(this)){
+            departamento.agregarMedico(this);
+        }
     }
     
     public Matricula getMatricula() {
